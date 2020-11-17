@@ -16,7 +16,6 @@ class Bid(models.Model):
 
 class Course(models.Model):
     semester = models.DateField()
-    code = models.AutoField()
     professor_name = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     credit = models.PositiveSmallIntegerField()
