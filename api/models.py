@@ -1,25 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
-class User(models.Model):
-    username = models.CharField(max_length=254)
-    password = models.CharField(max_length=254)
+class Student(AbstractUser):
+    last_semester_grade = models.PositiveSmallIntegerField(null = True)
+    budget = models.PositiveSmallIntegerField(null = True)
 
-class Student(models.Model):
-    user = models.OneToOneField(User,
-        on_delete=models.PROTECT,
-        blank = True,
-    )
-    name = models.CharField(max_length=50)
-    last_semester_grade = models.PositiveSmallIntegerField()
-    budget = models.PositiveSmallIntegerField()
+    class Meta:
+        verbose_name = _('student')
+        verbose_name_plural = _('students')
 
-class Bid(models.Model):
-    user = models.OneToOneField(User,
-        on_delete=models.CASCADE,
-    )
-    course_code = models.PositiveSmallIntegerField()
-    semester = models.DateField()
-    value = models.PositiveSmallIntegerField()
+    def __str__(self):
+        return self.username
+
+    class Bid(models.Model):
+        course_code = models.PositiveSmallIntegerField()
+        semester = models.DateField()
+        value = models.PositiveSmallIntegerField()
 
 class Course(models.Model):
     semester = models.DateField()
