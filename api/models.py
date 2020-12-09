@@ -3,8 +3,10 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
 class Student(AbstractUser):
-    last_semester_grade = models.PositiveSmallIntegerField(null = True)
+    #last_semester_grade = models.PositiveSmallIntegerField(null = True)
     budget = models.PositiveSmallIntegerField(null = True)
+
+    course_bidding_fields = ['budget']
 
     class Meta:
         verbose_name = _('student')
