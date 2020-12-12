@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import StudentCreationForm, StudentEditionForm
 from django.utils.translation import gettext_lazy as _
 
-from .models import Student
+from .models import Student, Course
 
 class Admin(UserAdmin):
     fieldsets = (
@@ -23,3 +23,4 @@ class Admin(UserAdmin):
     list_display = ['username', 'email',]
 
 admin.site.register(Student, Admin)
+admin.site.register(Course)
