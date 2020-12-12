@@ -1,6 +1,9 @@
-db.sqlite3 
+*.sqlite3 
 __pycache__
 *.pyc
 *.log
 *.pot
 
+migrations
+
+production_settings.py
