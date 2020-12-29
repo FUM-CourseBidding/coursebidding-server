@@ -15,16 +15,24 @@ class Student(AbstractUser):
     def __str__(self):
         return self.username
 
-    class Bid(models.Model):
-        course_code = models.PositiveSmallIntegerField()
-        semester = models.DateField()
-        value = models.PositiveSmallIntegerField()
+class Professor(models.Model):
+    name = models.CharField(max_length=50)
+
 
 class Course(models.Model):
     code = models.PositiveIntegerField(primary_key=True)
-    group_number = models.PositiveSmallIntegerField()
-    semester = models.DateField(null=True)
-    professor_name = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
-    credit = models.PositiveSmallIntegerField()
+    unit = models.PositiveSmallIntegerField()
+class AvailableCourse(models.Model):
+    semester = models.CharField(max_length=50)
+    #semester is stored like XY-Z where XY is the year and Z
+    # is either 1,2,3 for first half-year,second or summer semester
+    professor = models.ForeignKey(Professor,on_delete=models.CASCADE)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    group_number = models.PositiveSmallIntegerField()
     capacity = models.PositiveSmallIntegerField()
+class Bid(models.Model):
+    course = models.ForeignKey(AvailableCourse,on_delete=models.CASCADE)
+    student = models.ForeignKey(Student,on_delete=models.CASCADE)
+    value = models.PositiveSmallIntegerField()
+
