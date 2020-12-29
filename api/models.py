@@ -22,8 +22,8 @@ class Student(AbstractUser):
 
 class Course(models.Model):
     code = models.PositiveIntegerField(primary_key=True)
-    group_number = models.PositiveSmallIntegerField(primary_key=True)
-    semester = models.DateField()
+    group_number = models.PositiveSmallIntegerField()
+    semester = models.DateField(null=True)
     professor_name = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     credit = models.PositiveSmallIntegerField()
