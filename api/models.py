@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Student(AbstractUser):
     #last_semester_grade = models.PositiveSmallIntegerField(null = True)
-    budget = models.PositiveSmallIntegerField(null = True)
+    budget = models.PositiveSmallIntegerField(null = True,default=100)
 
     course_bidding_fields = ['budget']
 
