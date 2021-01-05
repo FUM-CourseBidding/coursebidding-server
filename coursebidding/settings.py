@@ -62,7 +62,7 @@ CORS_ORIGIN_WHITELIST = (
     )
 
 ROOT_URLCONF = 'coursebidding.urls'
-
+ACCOUNT_LOGOUT_ON_GET = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
