@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import *
 from .serializers import *
 
@@ -17,13 +19,6 @@ class AvailableCourseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = AvailableCourse.objects.all()
     serializer_class = AvailableCourseSerializer
 
-class BidAPIView(generics.ListCreateAPIView):
-    queryset = Bid.objects.all()
-    serializer_class = BidSerializer
-class BidDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Bid.objects.all()
-    serializer_class = BidSerializer
-
 class ProfessorAPIView(generics.ListCreateAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
@@ -38,4 +33,16 @@ class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     
+class BidAPIView(APIView):
+    def get(self,request):
+        bids = Bid.objects.all()
+        serializer = BidSerializer(bids,many=True)
+        return Response({"bids":serializer.data})
 
+    def post(self,request):
+        bid = request.data.get('bid')
+        serializer = BidSerializer(data=bid)
+        if(serializer.is_valid()):
+            serializer.save()
+
+        return Response({"errors":serializer.errors})
