@@ -41,7 +41,9 @@ class BidAPIView(generics.ListCreateAPIView):
 class BidDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
-def StudentCourses(request):
+def StudentsCourses(request):
     return HttpResponse(json.dumps(assign.get_students_courses()), content_type='application/json')
+def StudentCourses(request,student):
+    return HttpResponse(json.dumps(assign.get_student_courses(student)), content_type='application/json')
 
         

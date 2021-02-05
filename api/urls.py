@@ -12,5 +12,6 @@ urlpatterns = [
     path('student/<int:pk>/',StudentDetail.as_view()),
     path('professor/',ProfessorAPIView.as_view()),
     path('professor/<int:pk>/',ProfessorDetail.as_view()),
-    path('student_courses/',StudentCourses),
+    path('student_courses/',StudentsCourses),
+    path('student_courses/<int:student>/',StudentCourses),
     ]

@@ -19,3 +19,8 @@ def get_students_courses():
             students[index]['courses']=course_list
 
     return students
+
+def get_student_courses(student):
+    all_students_courses = get_students_courses()
+    index = find_student_in_list(all_students_courses,student)
+    return all_students_courses[index]
