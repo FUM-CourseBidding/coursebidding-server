@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 from . import assign
+import json
 class CourseAPIView(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -41,6 +42,6 @@ class BidDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
 def StudentCourses(request):
-    return HttpResponse(assign.get_students_courses(), content_type='application/json')
+    return HttpResponse(json.dumps(assign.get_students_courses()), content_type='application/json')
 
         

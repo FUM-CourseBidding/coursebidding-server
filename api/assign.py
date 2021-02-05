@@ -1,5 +1,4 @@
 from .models import *
-import json
 def can_assign(course_list,course):
     return True
 def find_student_in_list(students,pk):
@@ -19,8 +18,4 @@ def get_students_courses():
             course_list.append(bid.course.pk)
             students[index]['courses']=course_list
 
-    return json.dumps(students)
-            
-        
-        
-        
+    return students
