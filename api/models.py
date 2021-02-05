@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
+from binding_rules import rules
 
 class Student(AbstractUser):
     #last_semester_grade = models.PositiveSmallIntegerField(null = True)
@@ -11,7 +12,12 @@ class Student(AbstractUser):
     class Meta:
         verbose_name = _('student')
         verbose_name_plural = _('students')
-        
+
+    @classmethod
+    def can_assign(cls, bid, student_courses): #student_courses as <QuerySet>
+        aCourse_list = list(student_courses).append(bid.course)
+        return all([rule(aCourse_list) for rule in rules])
+
     def __str__(self):
         return self.username
 
@@ -39,6 +45,9 @@ class Session(models.Model):
     ]
     time = models.TimeField()
     day = models.PositiveSmallIntegerField(choices = daysOfWeek)
+    
+    def return_as_tuple(self):
+        return tuple(self.day, self.time)
 class AvailableCourse(models.Model):
     semester = models.CharField(max_length=50)
     #semester is stored like XY-Z where XY is the year and Z
