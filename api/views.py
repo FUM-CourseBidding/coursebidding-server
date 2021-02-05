@@ -1,10 +1,12 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from .serializers import *
-
+from . import assign
+import json
 class CourseAPIView(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -39,3 +41,9 @@ class BidAPIView(generics.ListCreateAPIView):
 class BidDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
+def StudentsCourses(request):
+    return HttpResponse(json.dumps(assign.get_students_courses()), content_type='application/json')
+def StudentCourses(request,student):
+    return HttpResponse(json.dumps(assign.get_student_courses(student)), content_type='application/json')
+
+        
