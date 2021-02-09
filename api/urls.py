@@ -9,7 +9,7 @@ urlpatterns = [
     path('bid/',BidAPIView.as_view()),
     path('bid/<int:pk>/',BidDetail.as_view()),
     path('student/',StudentAPIView.as_view()),
-    path('student/<int:pk>/',StudentDetail.as_view()),
+    path('student/<str:username>/',StudentDetail.as_view()),
     path('professor/',ProfessorAPIView.as_view()),
     path('professor/<int:pk>/',ProfessorDetail.as_view()),
     path('student_courses/',StudentsCourses),

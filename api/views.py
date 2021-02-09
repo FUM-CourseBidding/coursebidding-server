@@ -20,7 +20,6 @@ class AvailableCourseAPIView(generics.ListCreateAPIView):
 class AvailableCourseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = AvailableCourse.objects.all()
     serializer_class = AvailableCourseSerializer
-
 class ProfessorAPIView(generics.ListCreateAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
@@ -34,7 +33,7 @@ class StudentAPIView(generics.ListCreateAPIView):
 class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    
+    lookup_field = 'username'
 class BidAPIView(generics.ListCreateAPIView):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
