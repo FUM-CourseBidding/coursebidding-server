@@ -58,9 +58,9 @@ class AvailableCourse(models.Model):
     capacity = models.PositiveSmallIntegerField()
     session1 = models.ForeignKey(Session,null=True,on_delete=models.CASCADE,related_name="Session1_set")
     session2 = models.ForeignKey(Session,null=True,on_delete=models.CASCADE,default=None,related_name="Session2_set")
+    exam = models.ForeignKey(Session,null=True,on_delete=models.CASCADE,default=None,related_name="Exam_set")
     def __str__(self):
         return f'{self.course}-{self.professor}'
-    
 class Bid(models.Model):
     course = models.ForeignKey(AvailableCourse,null=True,on_delete=models.CASCADE)
     student = models.ForeignKey(Student,null=True,on_delete=models.CASCADE)

@@ -37,6 +37,13 @@ class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
 class BidAPIView(generics.ListCreateAPIView):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
+class StudentBidsAPIView(generics.ListCreateAPIView):
+    serializer_class = BidSerializer
+    def get_queryset(self):
+        username = self.kwargs['username']
+        st = Student.objects.filter(username=username)
+        pk = st[0].pk if st else -1
+        return Bid.objects.filter(student_id=pk)
 class BidDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
@@ -46,3 +53,6 @@ def StudentCourses(request,student):
     return HttpResponse(json.dumps(assign.get_student_courses(student)), content_type='application/json')
 
         
+class SessionAPIView(generics.ListCreateAPIView):
+    queryset = Session.objects.all()
+    serializer_class = SessionSerializer

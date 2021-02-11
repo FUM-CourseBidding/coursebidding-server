@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from django.contrib.auth.hashers import make_password
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
@@ -8,7 +9,7 @@ class CourseSerializer(serializers.ModelSerializer):
 class AvailableCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = AvailableCourse
-        fields = ('semester','professor','course','group_number','capacity')
+        fields = ('semester','professor','course','group_number','capacity','session1','session2','exam')
 
 
 class BidSerializer(serializers.ModelSerializer):
@@ -35,6 +36,16 @@ class ProfessorSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('username','first_name','last_name','is_staff','budget')
-        
+        fields = ('username','password','first_name','last_name','budget')
+    def update(self,instance,validated_data):
+        validated_data['password'] = make_password(validated_data.get('password'))
+        return super(StudentSerializer, self).update(instance,validated_data)
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data.get('password'))
+        return super(StudentSerializer, self).create(validated_data)
+
+class SessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Session
+        fields = ('time','day')
  
