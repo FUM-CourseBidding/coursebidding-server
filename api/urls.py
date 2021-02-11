@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import *
-
+from .auth import CustomAuthToken,Logout
 urlpatterns = [
     path('course/', CourseAPIView.as_view()),
     path('course/<int:pk>/',CourseDetail.as_view()),
@@ -12,4 +12,6 @@ urlpatterns = [
     path('student_courses/',StudentsCourses),
     path('student_courses/<int:student>/',StudentCourses),
     path('session/',SessionAPIView.as_view()),
+    path('token-auth-login/', CustomAuthToken.as_view()),
+    path('token-auth-logout/',Logout.as_view()),
     ]
