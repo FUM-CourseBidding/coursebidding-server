@@ -13,20 +13,6 @@ class CourseAPIView(generics.ListCreateAPIView):
 class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    
-class AvailableCourseAPIView(generics.ListCreateAPIView):
-    queryset = AvailableCourse.objects.all()
-    serializer_class = AvailableCourseSerializer
-class AvailableCourseDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = AvailableCourse.objects.all()
-    serializer_class = AvailableCourseSerializer
-class ProfessorAPIView(generics.ListCreateAPIView):
-    queryset = Professor.objects.all()
-    serializer_class = ProfessorSerializer
-class ProfessorDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Professor.objects.all()
-    serializer_class = ProfessorSerializer
-
 class StudentAPIView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer

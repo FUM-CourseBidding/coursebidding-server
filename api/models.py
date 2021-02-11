@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from api.binding_rules import rules
 
 class Student(AbstractUser):
-    #last_semester_grade = models.PositiveSmallIntegerField(null = True)
+    
     budget = models.PositiveSmallIntegerField(default=100)
 
     course_bidding_fields = ['budget']
@@ -21,19 +21,6 @@ class Student(AbstractUser):
     def __str__(self):
         return self.username
 
-class Professor(models.Model):
-    name = models.CharField(primary_key=True, max_length=50)
-    def __str__(self):
-        return self.name
-    
-
-
-class Course(models.Model):
-    code = models.PositiveIntegerField(primary_key=True)
-    subject = models.CharField(max_length=50)
-    unit = models.PositiveSmallIntegerField()
-    def __str__(self):
-        return self.subject
 class Session(models.Model):
     daysOfWeek = [(0, 'شنبه'),
     (1, 'یک شنبه'),
@@ -48,21 +35,20 @@ class Session(models.Model):
     
     def return_as_tuple(self):
         return tuple(self.day, self.time)
-class AvailableCourse(models.Model):
+class Course(models.Model):
+    subject = models.CharField(max_length=50)
+    unit = models.PositiveSmallIntegerField(default=3)
     semester = models.CharField(max_length=50)
-    #semester is stored like XY-Z where XY is the year and Z
-    # is either 1,2,3 for first half-year,second or summer semester
-    professor = models.ForeignKey(Professor,on_delete=models.CASCADE)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE)
-    group_number = models.PositiveSmallIntegerField()
-    capacity = models.PositiveSmallIntegerField()
+    professor = models.CharField(max_length=50)
+    code = models.CharField(max_length=50)
+    capacity = models.PositiveSmallIntegerField(default=0)
     session1 = models.ForeignKey(Session,null=True,on_delete=models.CASCADE,related_name="Session1_set")
     session2 = models.ForeignKey(Session,null=True,on_delete=models.CASCADE,default=None,related_name="Session2_set")
     exam = models.ForeignKey(Session,null=True,on_delete=models.CASCADE,default=None,related_name="Exam_set")
     def __str__(self):
-        return f'{self.course}-{self.professor}'
+        return f'{self.course}-{self.professor}-{self.code}'
 class Bid(models.Model):
-    course = models.ForeignKey(AvailableCourse,null=True,on_delete=models.CASCADE)
+    course = models.ForeignKey(Course,null=True,on_delete=models.CASCADE)
     student = models.ForeignKey(Student,null=True,on_delete=models.CASCADE)
     value = models.PositiveSmallIntegerField()
     def __str__(self):

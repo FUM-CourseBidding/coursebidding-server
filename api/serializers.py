@@ -1,15 +1,11 @@
 from rest_framework import serializers
 from .models import *
 from django.contrib.auth.hashers import make_password
+
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('code','subject','unit')
-
-class AvailableCourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AvailableCourse
-        fields = ('semester','professor','course','group_number','capacity','session1','session2','exam')
+        fields = ('subject','unit','semester','code','professor','capacity','session1','session2','exam')
 
 
 class BidSerializer(serializers.ModelSerializer):
@@ -28,10 +24,6 @@ class BidSerializer(serializers.ModelSerializer):
         st.save()
         return Bid.objects.create(**validated_data)
 
-class ProfessorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Professor
-        fields = ('name',)
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
