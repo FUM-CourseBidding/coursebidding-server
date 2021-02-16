@@ -10,17 +10,26 @@ class SessionSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     def get_session1_detail(self,obj):
         try:
-            return f'{obj.session1.day}-{obj.session1.time}'
+            session = {}
+            session['time'] = obj.session1.time
+            session['day'] = obj.session1.day
+            return session
         except:
             return ""
     def get_session2_detail(self,obj):
         try:
-            return f'{obj.session2.day}-{obj.session2.time}'
+            session = {}
+            session['time'] = obj.session2.time
+            session['day'] = obj.session2.day
+            return session
         except:
             return ""
     def get_exam_detail(self,obj):
         try:
-            return f'{obj.exam.day}-{obj.exam.time}'
+            session = {}
+            session['time'] = obj.exam.time
+            session['day'] = obj.exam.day
+            return session
         except:
             return ""
     
