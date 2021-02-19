@@ -17,6 +17,7 @@ class CustomAuthToken(ObtainAuthToken):
             'username': user.username,
             'name': f'{user.first_name} {user.last_name}',
             'budget' : user.budget,
+            'pk' : user.pk,
         })
 
 

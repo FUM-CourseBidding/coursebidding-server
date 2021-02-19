@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
-        fields = ('time','day')
+        fields = ('time','day','pk')
 
 class CourseSerializer(serializers.ModelSerializer):
     def get_session1_detail(self,obj):
@@ -39,7 +39,7 @@ class CourseSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Course
-        fields = ('subject','unit','semester','code','professor','capacity','session_1','session_2','exam_')
+        fields = ('subject','unit','semester','code','professor','capacity','session_1','session_2','exam_','pk')
         
 
 
@@ -47,7 +47,7 @@ class CourseSerializer(serializers.ModelSerializer):
 class BidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bid
-        fields = ('course','student','value')
+        fields = ('course_id','student_id','value','pk')
     def validate_value(self,value):
         student_id = self.initial_data['student']
         st = Student.objects.get(pk=student_id)
@@ -64,7 +64,7 @@ class BidSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('username','password','first_name','last_name','budget')
+        fields = ('username','password','first_name','last_name','budget','pk')
     def update(self,instance,validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
         return super(StudentSerializer, self).update(instance,validated_data)
