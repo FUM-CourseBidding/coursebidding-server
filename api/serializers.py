@@ -47,10 +47,10 @@ class CourseSerializer(serializers.ModelSerializer):
 class BidSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bid
-        fields = ('course_id','student_id','value','pk')
+        fields = ('course','student','value','pk')
     def validate_value(self,value):
-        student_id = self.initial_data['student']
-        st = Student.objects.get(pk=student_id)
+        stdnt_id = self.initial_data['student']
+        st = Student.objects.get(pk=stdnt_id)
         if(value > st.budget):
             raise serializers.ValidationError("You only have {} coins dude.".format(st.budget))
         return value
