@@ -28,12 +28,13 @@ class BidAPIView(APIView):
         return Response(bids)
 
     def post(self,request):
-        bid = request.data.copy()
-        bid['student'] = request.user.pk
-        b = BidSerializer(data =bid)
-        b.is_valid(raise_exception=True)
-        b.save()
-        return Response(bid)
+        bids = request.data.copy()
+        for bid in bids:
+            bid['student']=request.user.pk
+            b = BidSerializer(data =bid)
+            b.is_valid(raise_exception=True)
+            b.save()
+        return Response(bids)
 
 class StudentBidsAPIView(generics.ListCreateAPIView):
     serializer_class = BidSerializer
