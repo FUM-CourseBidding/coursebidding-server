@@ -3,7 +3,7 @@ from .views import *
 from .auth import CustomAuthToken,Logout
 urlpatterns = [
     path('course/', CourseAPIView.as_view()),
-    path('course/<int:pk>/',CourseDetail.as_view()),
+    path('course/<str:code>/',CourseDetail.as_view()),
     path('bid/',BidAPIView.as_view()),
     path('bid/<str:username>/',StudentBidsAPIView.as_view()),
     path('bid/<str:username>/<int:pk>/',BidDetail.as_view()),
